@@ -1,8 +1,8 @@
 {
   "name": "makkari",
   "version": "1.0.0",
-  "main": "dist/makkari/makkari.js",
-  "types": "dist/makkari/makkari.d.ts",
+  "main": "dist/makkari/index.js",
+  "types": "dist/types/index.d.ts",
   "files": [
     "dist"
   ],

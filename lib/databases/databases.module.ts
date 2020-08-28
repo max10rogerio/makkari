@@ -1,14 +1,12 @@
-import { Postgres } from './postgres/postgres.module'
-import { IDatabaseConfigs, IDatabase } from './interfaces/databases.interface'
-import { Databases } from '../makkari/interfaces/makkari.interface'
-import { MySQL } from './mysql/mysql.module'
-import { IDriver } from './interfaces/driver.interface'
+import { Databases } from '../makkari/interfaces/makkari.interface';
+
+import { Postgres } from './postgres/postgres.module';
+import { IDatabase } from './interfaces/databases.interface';
+import { MySQL } from './mysql/mysql.module';
 
 type InstanceOfDriver = MySQL | Postgres;
 
 export class Database {
-  private databaseType = '' as Databases
-  private databaseInfo = {} as IDatabaseConfigs
   private readonly driver: InstanceOfDriver;
 
   constructor(databaseConfig: IDatabase) {
