@@ -12,4 +12,5 @@ export interface IMakkariConfigDatabase {
 
 export enum Databases {
   POSTGRES = 'postgres',
+  MYSQL = 'mysql',
 }

@@ -1,15 +1,26 @@
 version: '3'
 services:
-  tad:
+  tad-postgres:
     image: postgres:9.6
     container_name: 'postgres'
     environment:
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=tadpgweb
+      # - POSTGRES_DB=tadpgweb
       - POSTGRES_USER=postgres
       - TZ=GMT
     volumes:
-      - ./repository_files/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./extra/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - 5432:5432
-    stdin_open: true
+  tad-mysql:
+    image: mysql:8.0
+    container_name: 'mysql'
+    environment:
+      - MYSQL_ROOT_PASSWORD=makkari
+      - MYSQL_PASSWORD=makkari
+      - MYSQL_DATABASE=makkari
+    volumes: 
+      - ./extra/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports: 
+      - 3306:3306
+    

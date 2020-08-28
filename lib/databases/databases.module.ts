@@ -1,20 +1,30 @@
 import { Postgres } from './postgres/postgres.module'
 import { IDatabaseConfigs, IDatabase } from './interfaces/databases.interface'
 import { Databases } from '../makkari/interfaces/makkari.interface'
+import { MySQL } from './mysql/mysql.module'
+import { IDriver } from './interfaces/driver.interface'
+
+type InstanceOfDriver = MySQL | Postgres;
 
 export class Database {
   private databaseType = '' as Databases
   private databaseInfo = {} as IDatabaseConfigs
+  private readonly driver: InstanceOfDriver;
 
-  constructor(private readonly databaseConfig: IDatabase) {
-    this.databaseType = databaseConfig.type
-    this.databaseInfo = databaseConfig.config
+  constructor(databaseConfig: IDatabase) {
+    this.driver = this.loadDriver(databaseConfig);
   }
 
-  public sendQuery(query: string) {
-    if (this.databaseType === Databases.POSTGRES) {
-      const postgres = new Postgres({ ...this.databaseInfo, min: 1, max: 10 })
-      return postgres.sendQuery(query)
+  private loadDriver(databaseConfig: IDatabase) {
+    switch (databaseConfig.type) {
+      case Databases.MYSQL:
+        return new MySQL(databaseConfig.config);
+      default:
+        return new Postgres({ ...databaseConfig.config, min: 1, max: 10 });
     }
+  }
+
+  public sendQuery<T = any>(query: string) {
+    return this.driver.sendQuery<T>(query);
   }
 }
