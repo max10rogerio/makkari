@@ -2,6 +2,10 @@
   "name": "makkari",
   "version": "1.0.0",
   "main": "dist/makkari/makkari.js",
+  "types": "dist/makkari/makkari.d.ts",
+  "files": [
+    "dist"
+  ],
   "repository": "https://github.com/tigdevs/makkari.git",
   "author": "tigdevs",
   "license": "MIT",
